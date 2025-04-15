@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Adoption Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="detail.html">Detail</a></li>
+          <li><a href="saved-collection.html">❤️</a></li>
+        </ul>
+    </nav>
+
+    <h1>Cat Adoption Center</h1>
+    <button id="loadCatsButton">Show Adorable Cats</button>
+    <div id="cats"></div>
+
+    <script>
+        const randomNames = ["Whiskers", "Luna", "Mittens", "Shadow", "Simba", "Nala", "Cleo", "Oreo", "Gizmo", "Mochi"];
+
+        const getRandomName = () => {
+            return randomNames[Math.floor(Math.random() * randomNames.length)];
+        };
+
+        const randomDescriptions = [
+            "Loves chasing laser pointers and cuddling on the couch.",
+            "Enjoys long naps in sunbeams and has a loud purr.",
+            "A curious explorer with a playful attitude.",
+            "Prefers belly rubs over treats—unless it’s tuna.",
+            "A sassy little diva who rules the house.",
+            "Shy at first, but melts your heart once comfortable.",
+            "This fluffball is a professional lap-warmer.",
+            "Gets the zoomies at 3AM—no exceptions.",
+            "A quiet companion with soulful eyes.",
+            "Loves cardboard boxes more than expensive toys."
+        ];
+
+const getRandomDescription = () => {
+    return randomDescriptions[Math.floor(Math.random() * randomDescriptions.length)];
+};
+        const createCatCard = (cat) => {
+            const catDiv = document.createElement('div');
+            catDiv.classList.add('cat-card');
+
+            const catName = getRandomName();
+            const catDescription = getRandomDescription();
+
+            catDiv.innerHTML = `
+                <h2>${catName}</h2>
+                <img src="${cat.url}" alt="Adoptable cat" class="cat-image">
+                <p><strong>ID:</strong> ${cat.id}</p>
+                <p>${catDescription}</p>
+            `;
+
+            catDiv.addEventListener('click', () => {
+                const catDetails = {
+                    id: cat.id,
+                    name: catName,
+                    image: cat.url,
+                    description: catDescription
+                };
+                localStorage.setItem('selectedCat', JSON.stringify(catDetails));
+                window.location.href = 'detail.html';
+            });
+
+            return catDiv;
+        };
+
+        const fetchCats = () => {
+            return fetch(`https://api.thecatapi.com/v1/images/search?limit=10`)
+                .then(response => response.json());
+        };
+
+        document.querySelector('#loadCatsButton').addEventListener('click', () => {
+            const catsDiv = document.querySelector('#cats');
+            catsDiv.innerHTML = '<p>Loading cats...</p>';
+
+            fetchCats()
+                .then(cats => {
+                    catsDiv.innerHTML = '';
+                    cats.forEach(cat => {
+                        const catCard = createCatCard(cat);
+                        catsDiv.appendChild(catCard);
+                    });
+                })
+                .catch(error => {
+                    catsDiv.innerHTML = `<p style="color: red;">Failed to load cats: ${error.message}</p>`;
+                });
+        });
+        
+    </script>
+</body>
+</html>

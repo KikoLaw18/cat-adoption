@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cat Detail</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="detail.html">Detail</a></li>
+          <li><a href="saved-collection.html">❤️</a></li>
+        </ul>
+    </nav>
+
+    <div id="catDetail"></div>
+    <button id="saveCatButton">Save to Collection</button>
+
+    <script>
+        const cat = JSON.parse(localStorage.getItem('selectedCat'));
+        const container = document.getElementById('catDetail');
+
+        if (cat) {
+            container.innerHTML = `
+                <h2>${cat.name}</h2>
+                <img src="${cat.image}" alt="Cat Image" class="cat-image">
+                <p><strong>ID:</strong> ${cat.id}</p>
+                <p><strong>About:</strong> ${cat.description}</p>
+            `;
+        }
+
+        document.getElementById('saveCatButton').addEventListener('click', () => {
+            let savedCats = JSON.parse(localStorage.getItem('savedCats')) || [];
+            const alreadySaved = savedCats.some(saved => saved.id === cat.id);
+
+            if (!alreadySaved) {
+                savedCats.push(cat);
+                localStorage.setItem('savedCats', JSON.stringify(savedCats));
+                alert('Cat saved! ❤️');
+            } else {
+                alert('Cat already in your collection.');
+            }
+        });
+    </script>
+</body>
+</html>

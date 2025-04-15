@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: sans-serif;
+}
+/* nav */
+.navbar {
+    background-color: #ff6f61;
+    padding: 20px 20px;
+    text-align: center;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar ul li {
+    display: inline;
+    margin-right: 40px;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 8px 15px;
+    border-radius: 5px;
+  }
+  
+  .navbar ul li a:hover {
+    background-color: #ff1500;
+    color: white;
+  }
+/* home page */
+input[type="text"] {
+    padding: 10px;
+    width: 200px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#catsContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+#cats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+.cat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    margin: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.cat-card img {
+    width: 100%;
+    max-width: 250px; /* ✅ Keeps image from getting too big */
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+a {
+    color: #ff6f61;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    #cats {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 620px;
+    }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 600px) {
+    #cats {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+    }
+}
+
+/* detail page */
+.detail-container {
+    max-width: 500px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .detail-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  #saveButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saved Cats</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="detail.html">Detail</a></li>
+          <li><a href="saved-collection.html">❤️</a></li>
+        </ul>
+    </nav>
+
+    <h1>Saved Cats</h1>
+    <div id="savedCats"></div>
+
+    <script>
+        const container = document.getElementById('savedCats');
+        const savedCats = JSON.parse(localStorage.getItem('savedCats')) || [];
+
+        if (savedCats.length === 0) {
+            container.innerHTML = "<p>You haven't saved any cats yet 😿</p>";
+        } else {
+            savedCats.forEach(cat => {
+                const catDiv = document.createElement('div');
+                catDiv.classList.add('cat-card');
+                catDiv.innerHTML = `
+                    <h2>${cat.name}</h2>
+                    <img src="${cat.image}" alt="Cat Image" class="cat-image">
+                    <p><strong>ID:</strong> ${cat.id}</p>
+                    <p><strong>About:</strong> ${cat.description}</p>
+                `;
+
+                catDiv.addEventListener('click', () => {
+                    localStorage.setItem('selectedCat', JSON.stringify(cat));
+                    window.location.href = 'detail.html';
+                });
+
+                container.appendChild(catDiv);
+            });
+        }
+    </script>
+</body>
+</html>
